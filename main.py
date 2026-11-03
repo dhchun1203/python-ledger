@@ -7,7 +7,8 @@ while True:
     print()
     print("1. 기록 추가")
     print("2. 목록 보기")
-    print("3. 끝내기")
+    print("3. 가장 큰 지출")
+    print("4. 끝내기")
 
     choice = input("선택 : ")
     if choice == "1":
@@ -38,6 +39,13 @@ while True:
         print(line)
       print(f"잔액: {sum(amounts):,}원")
     elif choice == "3":
+        if len(amounts) == 0:
+            print("지출 기록이 없어요.")
+        elif min(amounts) < 0:
+            print(f"가장 큰 지출 : {lines[amounts.index(min(amounts))]}")
+        else:
+            print("지출 기록이 없어요.")
+    elif choice == "4":
         print("다음에 또 만나요.")
         break
     else:
