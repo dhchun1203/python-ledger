@@ -1,6 +1,7 @@
 print("=== 나의 가계부 ===")
 
 lines = []
+amounts = []
 
 while True:
     print()
@@ -26,13 +27,16 @@ while True:
 
         if kind == "수입" :
             lines.append(f"[{category}] {item} +{amount:,}원")
+            amounts.append(amount)
         else:
             lines.append(f"[{category}] {item} -{amount:,}원")
+            amounts.append(-amount)
         print("기록했어요")
     elif choice == "2":
       print(f"모두 {len(lines)}건")
       for line in lines:
         print(line)
+      print(f"잔액: {sum(amounts):,}원")
     elif choice == "3":
         print("다음에 또 만나요.")
         break
