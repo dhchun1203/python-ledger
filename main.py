@@ -7,7 +7,8 @@ while True:
     print("1. 기록 추가")
     print("2. 목록 보기")
     print("3. 가장 큰 지출")
-    print("4. 끝내기")
+    print("4. 분류별 지출")
+    print("5. 끝내기")
     choice = input("선택: ")
  
     if choice == "1": # 기록 추가
@@ -50,7 +51,15 @@ while True:
             print("지출 기록이 없어요.")
         else:
             print(f"가장 큰 지출: [{biggest['category']}] {biggest['item']} -{biggest['amount']:,}원")
-    elif choice == "4": # 끝내기
+    elif choice == "4":
+        totals = {}
+        for entry in entries:
+            if entry["kind"] == "지출":
+                category = entry["category"]
+                totals[category] = totals.get(category, 0) + entry["amount"]  
+        for category, total in totals.items():
+            print(f"{category}: {total:,}원")  
+    elif choice == "5": # 끝내기
         print("다음에 또 만나요.")
         break
     else:
