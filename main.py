@@ -23,18 +23,20 @@ def add_entry(entries):
     entries.append(entry)
     print("기록했어요.")
 
+def signed_amount(entry):
+    return -entry["amount"] if entry['kind'] == "지출" else entry["amount"]
+
+def balance(entries):
+    total = 0
+    for entry in entries:
+        total += signed_amount(entry)
+    return total
+
 def show_list(entries):
-    balance = 0
     print(f"모두 {len(entries)}건")
     for entry in entries:
-        if entry["kind"] == "수입":
-            sign = "+"
-            balance += entry["amount"]
-        else:
-            sign = "-"
-            balance -= entry["amount"]
-        print(f"[{entry['category']}] {entry['item']} {sign}{entry['amount']:,}원")
-    print(f"잔액: {balance:,}원")
+        print(f"{signed_amount(entry):>+12,}원  [{entry['category']}] {entry['item']}")
+    print(f"잔액: {balance(entries):,}원")
 
 def show_biggest(entries):
     biggest = None
