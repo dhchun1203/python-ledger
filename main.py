@@ -51,14 +51,22 @@ while True:
             print("지출 기록이 없어요.")
         else:
             print(f"가장 큰 지출: [{biggest['category']}] {biggest['item']} -{biggest['amount']:,}원")
-    elif choice == "4":
+    elif choice == "4": # 분류별 지출
         totals = {}
+        
         for entry in entries:
             if entry["kind"] == "지출":
                 category = entry["category"]
                 totals[category] = totals.get(category, 0) + entry["amount"]  
-        for category, total in totals.items():
-            print(f"{category}: {total:,}원")  
+
+        if totals:
+            total_amount = sum(totals.values())
+            ranked = sorted(totals.items(), key=lambda pair: pair[1], reverse=True)
+            for category, total in ranked:
+                ratio = (total / total_amount) * 100
+                print(f"{category}: {total:,}원 ({ratio:.1f}%)")  
+        else:
+            print("지출 기록이 없어요.")
     elif choice == "5": # 끝내기
         print("다음에 또 만나요.")
         break
